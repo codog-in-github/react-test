@@ -1,0 +1,15 @@
+@import './theme.scss';
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.phone {
+  background: $color-primary;
+  width: 400px;
+  border-radius: $border-radius-large;
+  margin: $margin-width-normal auto;
+  padding: $padding-width-normal;
+  border: $border-width-bold $color-black $border-style-primary;
+}

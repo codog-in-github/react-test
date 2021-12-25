@@ -1,15 +1,10 @@
 import React from 'react'
+import Screen from './compenents/Screen'
 
 export default class App extends React.Component {
-  static propTypes = {
-    age: Number,
-    grow: Function
-  }
-
   render () {
-    return <div>
-      <h1>User Age Is {this.props.age}</h1>
-      <button onClick={this.props.grow}>GROW</button>
+    return <div className='phone'>
+      <Screen />
     </div>
   }
 }
