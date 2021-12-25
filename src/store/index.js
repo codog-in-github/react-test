@@ -15,17 +15,16 @@ export const store = configureStore({
   }
 })
 
-const connectConfig = {
-  mapStateToProps (state) {
-    return { age: state.userAge }
-  },
-  mapDispatchToProps (dispatch) {
-    return {
-      grow () {
-        dispatch({ type: 'userGrow' })
-      }
+const mapStateToProps = state => {
+  return { age: state.userAge }
+}
+const mapDispatchToProps = dispatch => {
+  return {
+    grow () {
+      dispatch({ type: 'userGrow' })
     }
   }
 }
 
-export const storeConnectComponent = component => connect(connectConfig)(component)
+export const storeConnectComponent =
+  component => connect(mapStateToProps, mapDispatchToProps)(component)

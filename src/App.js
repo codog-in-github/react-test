@@ -5,10 +5,6 @@ export default class App extends React.Component {
     age: Number,
     grow: Function
   }
-  constructor (props) {
-    super(props)
-    this.grow = this.grow.bind(this)
-  }
 
   render () {
     return <div>
