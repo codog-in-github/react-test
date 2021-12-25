@@ -1,7 +1,11 @@
 import reactDom from 'react-dom'
+import { Provider } from 'react-redux'
 import App from './App'
+import { storeConnectComponent, store } from './store'
 
 reactDom.render(
-  <App />,
+  <Provider store={store}>
+    {storeConnectComponent(App)}
+  </Provider>,
   document.getElementById('root')
 )
