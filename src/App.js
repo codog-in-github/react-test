@@ -5,6 +5,7 @@ export default class App extends React.Component {
   render () {
     return <div className='phone'>
       <Screen />
+      <div className='home-btn'></div>
     </div>
   }
 }

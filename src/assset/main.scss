@@ -5,11 +5,90 @@
   box-sizing: border-box;
 }
 
+button{
+  cursor: pointer;
+}
+
+body{
+  background-color: $color-minor;
+}
+
 .phone {
-  background: $color-primary;
   width: 400px;
-  border-radius: $border-radius-large;
   margin: $margin-width-normal auto;
   padding: $padding-width-normal;
-  border: $border-width-bold $color-black $border-style-primary;
+  border: $border-width-bold $color-primary $border-style-primary;
+  border-radius: $border-radius-large;
+
+  background: $color-minor;
+  color: $color-primary;
+  
+  .screen{
+    border: $border-width-bold $color-primary $border-style-primary;
+    border-radius: $border-radius-large;
+  }
+
+  .home-btn{
+    width: $size-btn-large;
+    height: $size-btn-large;
+    line-height: $size-btn-large;
+    margin: $margin-width-large auto;
+    border: $border-width-bold $color-primary $border-style-primary;
+    border-radius: $border-radius-circle;
+    cursor: pointer;
+  }
+}
+
+
+.player{
+  padding: $padding-width-normal;
+  text-align: center;
+
+  .play-btn{
+    display: inline-block;
+    cursor: pointer;
+    border: $border-width-bold $color-primary $border-style-primary;
+    border-radius: $border-radius-large;
+    padding: $padding-width-large;
+  }
+}
+
+
+$progress-height:30px;
+$bar-height: $progress-height / 5;
+$controll-height: $progress-height / 2;
+
+.progress{
+  width: 100%;
+  height: $progress-height;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+
+  .bar{
+    width: 80%;
+    height: $bar-height;
+    flex: 1 1 auto;
+    position: relative;
+    justify-content: center;
+
+    .complete{
+      height: 100%;
+      line-height: $progress-height;
+      background: $color-gradient-primary;
+    }
+    .control{
+      height: $controll-height;
+      width: $controll-height;
+      position: absolute;
+      top: -$controll-height / 2 + $border-width-bold;
+      border: $border-width-bold $color-primary $border-style-primary;
+      border-radius: $border-radius-circle;
+    }
+  }
+
+  .label{
+    padding: $padding-width-normal;
+    flex: 0 0 auto;
+  }
 }
