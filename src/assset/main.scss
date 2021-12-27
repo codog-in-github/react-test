@@ -66,6 +66,7 @@ $controll-height: $progress-height / 2;
   align-items: center;
 
   .bar{
+    cursor: pointer;
     width: 80%;
     height: $bar-height;
     flex: 1 1 auto;

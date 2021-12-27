@@ -23,12 +23,19 @@ export default class Screen extends React.Component {
     }
     this.play = this.play.bind(this)
     this.pause = this.pause.bind(this)
+    this.onCurrentTimeChange = this.onCurrentTimeChange.bind(this)
+  }
+
+  onCurrentTimeChange (currentTime) {
+    this.audio.currentTime = currentTime
+    this.setState({ currentTime })
   }
 
   render () {
     return <div id='player' className='player'>
       <Lyric currentTime={this.state.currentTime}></Lyric>
       <Progress
+        onCurrentTimeChange={this.onCurrentTimeChange}
         complete={this.state.currentTime}
         total={this.state.duration}
         label={progressTimeFormat(this.state.currentTime) + '/' + progressTimeFormat(this.state.duration)}
