@@ -99,5 +99,9 @@ $controll-height: $progress-height / 2;
   .rolling-box{
     position: relative;
     transition: all 1s;
+
+    .row{
+      transition: all 1s;
+    }
   }
 }

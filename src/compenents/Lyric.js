@@ -5,6 +5,12 @@ import lyric from '../assset/lyric.json'
 const SHOW_LYRIC_MAX_LINE = 5
 const LYRIC_LINE_HEIGHT = 20
 const LYRIC_FONT_SIZE = 14
+const FOCUS_LINE_INDEX = 3
+const FOCUS_LINE_HEIGHT = 25
+const FOCUS_FONT_SIZE = 25
+const FOCUS_EXTRA_STYLE = {
+  color: '#ff6090'
+}
 
 const getTimeMap = lyric => {
   const timeMap = {}
@@ -41,16 +47,23 @@ export default class Lyric extends React.Component {
 
   render () {
     const currentRow = this.findCurrentLyricRow(this.props.currentTime)
-    console.log('currentRow ', currentRow)
+
     return <div className='lyric' style={{
-      height: SHOW_LYRIC_MAX_LINE * LYRIC_LINE_HEIGHT + 'px',
+      height: (SHOW_LYRIC_MAX_LINE - 1) * LYRIC_LINE_HEIGHT + FOCUS_LINE_HEIGHT + 'px',
       fontSize: LYRIC_FONT_SIZE + 'px'
     }}>
       <div className='rolling-box' style={{
-        top: -currentRow * LYRIC_LINE_HEIGHT + 'px',
+        top: -(currentRow - FOCUS_LINE_INDEX) * LYRIC_LINE_HEIGHT + 'px',
         lineHeight: LYRIC_LINE_HEIGHT + 'px'
       }}>
-        {lyricText.map((row, i) => <div key={i}>{row}</div>)}
+        {lyricText.map((row, i) =>
+          <div key={i} className='row' style={i === currentRow ? {
+            lineHeight: FOCUS_LINE_HEIGHT + 'px',
+            height: FOCUS_LINE_HEIGHT + 'px',
+            fontSize: FOCUS_FONT_SIZE + 'px',
+            ...FOCUS_EXTRA_STYLE
+          } : { height: LYRIC_LINE_HEIGHT + 'px' }}>{row || ' '}</div>
+        )}
       </div>
     </div>
   }
