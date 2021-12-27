@@ -1,4 +1,5 @@
 import React from 'react'
+import Lyric from './Lyric'
 import Progress from './Progress'
 
 const { floor } = Math
@@ -26,6 +27,7 @@ export default class Screen extends React.Component {
 
   render () {
     return <div id='player' className='player'>
+      <Lyric currentTime={this.state.currentTime}></Lyric>
       <Progress
         complete={this.state.currentTime}
         total={this.state.duration}

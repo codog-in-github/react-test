@@ -92,3 +92,12 @@ $controll-height: $progress-height / 2;
     flex: 0 0 auto;
   }
 }
+
+.lyric{
+  overflow: hidden;
+
+  .rolling-box{
+    position: relative;
+    transition: all 1s;
+  }
+}

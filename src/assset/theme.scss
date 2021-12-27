@@ -5,7 +5,7 @@ $color-gray: #888;
 $color-white: #fff;
 $color-primary: #72f1b8;
 $color-minor: $color-black;
-$color-gradient-primary: linear-gradient(to right, transparent,#72f1b8);
+$color-gradient-primary: linear-gradient(to right, transparent, $color-primary);
 
 $border-width-normal: 1px;
 $border-width-bold: 3px;
