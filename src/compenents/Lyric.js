@@ -1,7 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import lyric from '../assset/lyric.json'
-import { debounce } from '../utils'
 
 const SHOW_LYRIC_MAX_LINE = 5
 const LYRIC_LINE_HEIGHT = 20
@@ -30,10 +29,7 @@ const getTimeMap = lyric => {
 const timeMap = getTimeMap(lyric)
 const lyricText = Object.values(lyric)
 
-const dragStartPoint = {
-  x: 0,
-  y: 0
-}
+let dragStartY = 0
 
 export default class Lyric extends React.Component {
   static propTypes = {
@@ -44,7 +40,8 @@ export default class Lyric extends React.Component {
   constructor (props) {
     super(props)
     this.state = {
-      grabing: false
+      grabing: false,
+      dragY: 0
     }
     this.dragging = this.dragging.bind(this)
     this.dragStart = this.dragStart.bind(this)
@@ -66,32 +63,34 @@ export default class Lyric extends React.Component {
   }
 
   dragStart (e) {
-    console.log('e :', e)
     this.setMoveHandler()
     this.setState({ grabing: true })
-    dragStartPoint.x = e.pageX
-    dragStartPoint.y = e.pageY
+    dragStartY = e.screenY
   }
 
   dragging (e) {
-    console.log(e)
-    return false
+    this.setState({ dragY: e.screenY - dragStartY })
   }
 
-  dragEnd (e) {
+  dragEnd () {
     this.setState({ grabing: false })
     this.removeMoveHandler()
-    this.props.onCurrentTimeChange()
+
+    const currentRow = this.findCurrentLyricRow(this.props.currentTime)
+    const moveRow = Math.floor(
+      -this.state.dragY / (LYRIC_LINE_HEIGHT + 2 * LYRIC_MARGIN)
+    )
+    this.props.onCurrentTimeChange(timeMap[currentRow + moveRow])
   }
 
   setMoveHandler () {
-    document.body.addEventListener('onmousemove', this.dragging)
-    document.body.addEventListener('onmouseup', this.dragEnd)
+    document.onmousemove = this.dragging
+    document.onmouseup = this.dragEnd
   }
 
   removeMoveHandler () {
-    document.body.removeEventListener('onmousemove', this.dragging)
-    document.body.removeEventListener('onmouseup', this.dragEnd)
+    document.onmousemove = () => {}
+    document.onmouseup = () => {}
   }
 
   render () {
@@ -105,8 +104,11 @@ export default class Lyric extends React.Component {
         onMouseDown={this.dragStart}
         className='rolling-box'
         style={{
-          top: -(currentRow - FOCUS_LINE_INDEX) * (LYRIC_LINE_HEIGHT + LYRIC_MARGIN) + 'px',
-          lineHeight: LYRIC_LINE_HEIGHT + 'px'
+          top: -(currentRow - FOCUS_LINE_INDEX) * (LYRIC_LINE_HEIGHT + LYRIC_MARGIN) +
+            (this.state.grabing ? this.state.dragY : 0) +
+              'px',
+          lineHeight: LYRIC_LINE_HEIGHT + 'px',
+          cursor: this.state.grabing ? 'grabbing' : 'grab'
         }}
       >
         {lyricText.map((row, i) =>
