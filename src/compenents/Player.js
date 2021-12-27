@@ -33,13 +33,16 @@ export default class Screen extends React.Component {
 
   render () {
     return <div id='player' className='player'>
-      <Lyric currentTime={this.state.currentTime}></Lyric>
+      <Lyric
+        currentTime={this.state.currentTime}
+        onCurrentTimeChange={this.onCurrentTimeChange}
+      />
       <Progress
         onCurrentTimeChange={this.onCurrentTimeChange}
         complete={this.state.currentTime}
         total={this.state.duration}
         label={progressTimeFormat(this.state.currentTime) + '/' + progressTimeFormat(this.state.duration)}
-      ></Progress>
+      />
       {
         this.state.isPlay ? <div className='play-btn' onClick={this.pause}>pause</div>
           : <div className='play-btn' onClick={this.play}>play</div>
