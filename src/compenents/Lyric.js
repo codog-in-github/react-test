@@ -10,7 +10,7 @@ const FOCUS_LINE_INDEX = 3
 const FOCUS_LINE_HEIGHT = 25
 const FOCUS_FONT_SIZE = 25
 const FOCUS_EXTRA_STYLE = {
-  color: '#ff6090'
+  color: '#fede5d'
 }
 
 const getTimeMap = lyric => {
@@ -41,7 +41,8 @@ export default class Lyric extends React.Component {
     super(props)
     this.state = {
       grabing: false,
-      dragY: 0
+      dragY: 0,
+      startDragTime: props.currentTime
     }
     this.dragging = this.dragging.bind(this)
     this.dragStart = this.dragStart.bind(this)
@@ -64,7 +65,10 @@ export default class Lyric extends React.Component {
 
   dragStart (e) {
     this.setMoveHandler()
-    this.setState({ grabing: true })
+    this.setState({
+      grabing: true,
+      startDragTime: this.props.currentTime
+    })
     dragStartY = e.screenY
   }
 

@@ -5,9 +5,14 @@ import Progress from './Progress'
 const { floor } = Math
 
 const progressTimeFormat = sec => {
-  new Date().getSeconds
-  const minutes = floor(sec / 60)
-  const seconds = sec % 60
+  let minutes = floor(sec / 60).toString()
+  let seconds = (sec % 60).toString()
+  if (minutes.length === 1) {
+    minutes = '0' + minutes
+  }
+  if (seconds.length === 1) {
+    seconds = '0' + seconds
+  }
   return minutes === 0 ? `${seconds}"` : `${minutes}'${seconds}"`
 }
 
